@@ -45,10 +45,10 @@ class Scheduler {
                     'x-api-key': this._key
                 },
             }, response => {
-                let body = '';
-                response.on('data', chunk => body += chunk);
+                let responseBody = '';
+                response.on('data', chunk => responseBody += chunk);
                 response.on('end', () => {
-                    const result = JSON.parse(body);
+                    const result = JSON.parse(responseBody);
                     if(400 === response.statusCode) {
                         reject(result.message);
                     }
