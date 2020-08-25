@@ -1,6 +1,6 @@
 {
   "name": "schedulerapi-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Javascript / Typescript SDK for the www.schedulerapi.com service.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,11 +23,11 @@
     "url": "git+https://github.com/cbschuld/schedulerapi-js.git"
   },
   "keywords": [
-    "name",
-    "human names",
-    "parsing",
-    "name cleanup",
-    "names"
+    "scheduling",
+    "events",
+    "scheduler",
+    "sqs",
+    "delay processing"
   ],
   "author": "Chris Schuld <cbschuld@gmail.com>",
   "license": "MIT",
