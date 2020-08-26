@@ -39,6 +39,10 @@ If you want to schedule SQS events you will want to create a user in your AWS ac
 
 ## Usage
 
+### Scheduling an SQS Event
+
+To schedule an event you need to call the `scheduleSqs` function with the information you want to schedule.
+
 ```javascript
 const s = new Scheduler({ key: SCHEDULER_API_KEY });
 const results = await s.scheduleSqs({
@@ -58,6 +62,32 @@ output:
     "user": "CkM2xwzjvxjGhWeiMFWy9s"
 }
 ```
+
+### Updating an SQS Event
+
+To update a previously scheduled event you need to call the `updateSqs` function with the `id` of the event you want to change.  When you update an event you need to re-send all of the information along with the event.  If you do not have it you can obtain it from a call to `getStatus`.
+
+```javascript
+const s = new Scheduler({ key: SCHEDULER_API_KEY });
+const results = await s.updateSqs({
+    id: 'cLzxqmLKAEc2Tf2YzKRZW',
+    when: '2020-08-24 22:13:00',
+    url: YOUR_SQS_QUEUE_URL,
+    body: 'THE_BODY_OF_YOUR_SQS_MESSAGE'
+});
+console.log(results);
+```
+
+output:
+```json
+{
+    "id": "cLzxqmLKAEc2Tf2YzKRZW",
+    "when": "2020-08-24 22:13:00",
+    "now": "2020-08-24 20:11:35",
+    "user": "CkM2xwzjvxjGhWeiMFWy9s"
+}
+```
+
 
 ## Tests
 
