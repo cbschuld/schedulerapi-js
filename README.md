@@ -46,7 +46,7 @@ To schedule an event you need to call the `scheduleSqs` function with the inform
 ```javascript
 const s = new Scheduler({ key: SCHEDULER_API_KEY });
 const results = await s.scheduleSqs({
-    when: '2020-08-24 20:13:00',
+    when: new Date('2020-08-24 20:13:00'),
     url: YOUR_SQS_QUEUE_URL,
     body: 'THE_BODY_OF_YOUR_SQS_MESSAGE'
 });
@@ -71,7 +71,7 @@ To update a previously scheduled event you need to call the `updateSqs` function
 const s = new Scheduler({ key: SCHEDULER_API_KEY });
 const results = await s.updateSqs({
     id: 'cLzxqmLKAEc2Tf2YzKRZW',
-    when: '2020-08-24 22:13:00',
+    when: new Date('2020-08-24 22:13:00'),
     url: YOUR_SQS_QUEUE_URL,
     body: 'THE_BODY_OF_YOUR_SQS_MESSAGE'
 });
