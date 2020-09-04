@@ -9,6 +9,19 @@ export interface ScheduleSqsRequest {
     body: string;
 }
 
+export interface StatusResponse {
+    id: string;
+    when: string;
+    created: string;
+    modified: string;
+    now: string;
+    payload: { [key:string]: string|number|boolean }
+}
+
+export interface StatusRequest {
+    id: string;
+}
+
 export interface UpdateSqsRequest extends ScheduleSqsRequest {
     id: string;
 }
@@ -107,6 +120,34 @@ class Scheduler {
                 reject(error);
             });
             req.write(scheduleRequest);
+        });
+    };
+
+    public async status({ id }: StatusRequest): Promise<StatusResponse> {
+        return new Promise((resolve, reject) => {
+            const req = https.request({
+                hostname: 'api.schedulerapi.com',
+                method: 'GET',
+                path: '/status/' + id,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-api-key': this._key
+                },
+            }, response => {
+                let responseBody = '';
+                response.on('data', chunk => responseBody += chunk);
+                response.on('end', () => {
+                    const result = JSON.parse(responseBody);
+                    if(400 === response.statusCode) {
+                        reject(result.message);
+                    }
+                    resolve(result)
+                });
+            });
+            req.on('error', error => {
+                reject(error);
+            });
         });
     };
 }
