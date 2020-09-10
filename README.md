@@ -46,7 +46,7 @@ To schedule an event you need to call the `scheduleSqs` function with the inform
 ```javascript
 const s = new Scheduler({ key: SCHEDULER_API_KEY });
 const results = await s.scheduleSqs({
-    when: '2020-08-24 20:13:00',
+    when: new Date('2020-08-24 20:13:00'),
     url: YOUR_SQS_QUEUE_URL,
     body: 'THE_BODY_OF_YOUR_SQS_MESSAGE'
 });
@@ -63,6 +63,32 @@ output:
 }
 ```
 
+### Scheduling a Webhook Event
+
+To schedule an event you need to call the `scheduleWebhook` function with the information you want to schedule.
+
+```javascript
+const s = new Scheduler({ key: SCHEDULER_API_KEY });
+const results = await s.scheduleWebhook({
+    when: new Date('2020-08-24 20:13:00'),
+    url: YOUR_URL,
+    method: 'get', // or 'post' or 'GET' or 'POST'
+    body: 'REQUEST_BODY' // typically used for POST
+});
+console.log(results);
+```
+
+output:
+```json
+{
+    "id": "FiGGCz8BMieyuRXPVtKLFT",
+    "when": "2020-08-24 20:13:00",
+    "now": "2020-08-24 20:11:35",
+    "user": "CkM2xwzjvxjGhWeiMFWy9s"
+}
+```
+
+
 ### Updating an SQS Event
 
 To update a previously scheduled event you need to call the `updateSqs` function with the `id` of the event you want to change.  When you update an event you need to re-send all of the information along with the event.  If you do not have it you can obtain it from a call to `getStatus`.
@@ -71,7 +97,7 @@ To update a previously scheduled event you need to call the `updateSqs` function
 const s = new Scheduler({ key: SCHEDULER_API_KEY });
 const results = await s.updateSqs({
     id: 'cLzxqmLKAEc2Tf2YzKRZW',
-    when: '2020-08-24 22:13:00',
+    when: new Date('2020-08-24 20:13:00'),
     url: YOUR_SQS_QUEUE_URL,
     body: 'THE_BODY_OF_YOUR_SQS_MESSAGE'
 });
@@ -82,6 +108,33 @@ output:
 ```json
 {
     "id": "cLzxqmLKAEc2Tf2YzKRZW",
+    "when": "2020-08-24 22:13:00",
+    "now": "2020-08-24 20:11:35",
+    "user": "CkM2xwzjvxjGhWeiMFWy9s"
+}
+```
+
+
+### Updating an Webhook Event
+
+To update a previously scheduled event you need to call the `updateWebhook` function with the `id` of the event you want to change.  When you update an event you need to re-send all of the information along with the event.  If you do not have it you can obtain it from a call to `getStatus`.
+
+```javascript
+const s = new Scheduler({ key: SCHEDULER_API_KEY });
+const results = await s.updateWebhook({
+    id: 'FiGGCz8BMieyuRXPVtKLFT',
+    when: new Date('2020-08-24 20:13:00'),
+    url: YOUR_URL,
+    method: 'get', // or 'post' or 'GET' or 'POST'
+    body: 'REQUEST_BODY' // typically used for POST
+});
+console.log(results);
+```
+
+output:
+```json
+{
+    "id": "FiGGCz8BMieyuRXPVtKLFT",
     "when": "2020-08-24 22:13:00",
     "now": "2020-08-24 20:11:35",
     "user": "CkM2xwzjvxjGhWeiMFWy9s"
